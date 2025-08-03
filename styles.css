@@ -62,26 +62,25 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  min-width: 600px;        /* para móviles, se meterá en scroll */
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 th, td {
-  padding: 8px;
+  padding: 6px;
+  font-size: 0.8rem;
   text-align: center;
   border-bottom: 1px solid #eee;
 }
 th {
   background: linear-gradient(90deg, #ff9a9e, #fad0c4);
   color: #fff;
-  font-size: 0.9rem;
 }
 input.score {
-  width: 60px;
+  width: 50px;
   display: block;
   margin: 0 auto;
-  padding: 4px;
+  padding: 3px;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-align: center;
@@ -176,12 +175,13 @@ nav a:hover {
     justify-content: space-between;
     align-items: center;
   }
-  th {
+  th, td {
     font-size: 1rem;
     padding: 10px;
   }
-  td {
-    padding: 10px;
+  input.score {
+    width: 60px;
+    padding: 4px;
   }
 }
 
