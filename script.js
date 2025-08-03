@@ -50,7 +50,6 @@ start.addEventListener('click', () => {
   currentRow = 0;
   renderHistory();
   renderScoreboard();
-  renderNotes();
   updateTurnUI();
 });
 
@@ -74,7 +73,7 @@ newBtn.addEventListener('click', () => {
   localStorage.setItem('kniffel_history', JSON.stringify(history));
   // Limpiar datos actuales
   Object.keys(localStorage)
-    .filter(k => k.startsWith('score_p') || k.startsWith('notes_'))
+    .filter(k => k.startsWith('score_p'))
     .forEach(k => localStorage.removeItem(k));
   // Actualizar historial en UI
   renderHistory();
@@ -206,32 +205,6 @@ function loadFromStorage() {
     if (found) break;
   }
 }
-
-// Renderizar notas por sección
-function renderNotes() {
-  const upperSec = document.getElementById('notes-upper');
-  const lowerSec = document.getElementById('notes-lower');
-  const totalSec = document.getElementById('notes-totals');
-  upperSec.innerHTML = lowerSec.innerHTML = totalSec.innerHTML = '';
-
-  players.forEach((p, i) => {
-    ['upper', 'lower', 'total'].forEach(sec => {
-      const ta = document.createElement('textarea');
-      ta.classList.add('notes-box');
-      const label = sec === 'upper' ? 'sup.' : sec === 'lower' ? 'inf.' : 'totales';
-      ta.placeholder = `Notas ${label} de ${p}...`;
-      ta.dataset.player = i;
-      ta.dataset.sec = sec;
-      const key = `notes_${sec}_p${i}`;
-      ta.value = localStorage.getItem(key) || '';
-      ta.addEventListener('input', e => localStorage.setItem(key, e.target.value));
-      if (sec === 'upper') upperSec.appendChild(ta);
-      else if (sec === 'lower') lowerSec.appendChild(ta);
-      else totalSec.appendChild(ta);
-    });
-  });
-}
-
 // Actualizar UI de turnos
 function updateTurnUI() {
   turnLbl.textContent = `Turno de: ${players[currentTurn]}`;
