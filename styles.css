@@ -96,6 +96,7 @@ td.with-input .score-val {
 }
 input.score:disabled {
   background: #f0f0f0;
+  pointer-events: none;
 }
 
 /* Notas */

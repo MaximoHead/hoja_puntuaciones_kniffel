@@ -2,6 +2,7 @@
 const maxPlayers = 6;
 let players = [];
 let currentTurn = 0;
+let currentRow = 0;
 
 // Elementos del DOM
 const registro = document.getElementById('registro');
@@ -44,6 +45,7 @@ start.addEventListener('click', () => {
   registro.classList.add('hidden');
   game.classList.remove('hidden');
   currentTurn = 0;
+  currentRow = 0;
   renderHistory();
   renderScoreboard();
   renderNotes();
@@ -51,7 +53,12 @@ start.addEventListener('click', () => {
 });
 
 nextBtn.addEventListener('click', () => {
-  currentTurn = (currentTurn + 1) % players.length;
+  if (currentTurn < players.length - 1) {
+    currentTurn++;
+  } else {
+    currentTurn = 0;
+    currentRow++;
+  }
   updateTurnUI();
 });
 
@@ -71,6 +78,7 @@ newBtn.addEventListener('click', () => {
   renderHistory();
   // Reiniciar UI
   currentTurn = 0;
+  currentRow = 0;
   game.classList.add('hidden');
   registro.classList.remove('hidden');
   buildNameFields();
@@ -139,11 +147,14 @@ function renderScoreboard() {
         inp.classList.add('score');
         inp.dataset.player = pi;
         inp.dataset.row = ri;
-        inp.addEventListener('input', onScoreChange);
+        inp.addEventListener('change', onScoreChange);
         td.appendChild(inp);
-        const span = document.createElement('span');
-        span.classList.add('score-val');
-        td.appendChild(span);
+        td.addEventListener('click', () => {
+          currentRow = ri;
+          currentTurn = pi;
+          updateTurnUI();
+          inp.focus();
+        });
       }
       tr.appendChild(td);
     });
@@ -154,11 +165,16 @@ function renderScoreboard() {
 
   loadFromStorage();
   calculateAll();
+  // Deshabilitar todos los inputs y habilitar solo el correspondiente al turno
+  table.querySelectorAll('input.score').forEach(inp => (inp.disabled = true));
+  const active = document.querySelector(`#cell-${currentRow}-${currentTurn} input`);
+  if (active) active.disabled = false;
 }
 
 function loadFromStorage() {
+  const scoreRows = [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)];
   players.forEach((_, p) => {
-    [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)].forEach(r => {
+    scoreRows.forEach(r => {
       const key = `score_p${p}_r${r}`;
       const val = localStorage.getItem(key);
       if (val !== null) {
@@ -166,14 +182,24 @@ function loadFromStorage() {
         const inp = cell.querySelector('input');
         if (inp) {
           inp.value = val;
-          const span = cell.querySelector('.score-val');
-          if (span) span.textContent = val;
-        } else {
-          cell.textContent = val;
+          inp.disabled = true;
         }
       }
     });
   });
+  // Determinar siguiente celda vacía
+  let found = false;
+  for (let r of scoreRows) {
+    for (let p = 0; p < players.length; p++) {
+      if (localStorage.getItem(`score_p${p}_r${r}`) === null) {
+        currentRow = r;
+        currentTurn = p;
+        found = true;
+        break;
+      }
+    }
+    if (found) break;
+  }
 }
 
 // Renderizar notas por sección
@@ -205,7 +231,9 @@ function renderNotes() {
 function updateTurnUI() {
   turnLbl.textContent = `Turno de: ${players[currentTurn]}`;
   document.querySelectorAll('input.score').forEach(inp => {
-    inp.disabled = parseInt(inp.dataset.player) !== currentTurn;
+    const p = parseInt(inp.dataset.player);
+    const r = parseInt(inp.dataset.row);
+    inp.disabled = !(p === currentTurn && r === currentRow);
   });
 }
 
@@ -214,7 +242,15 @@ function onScoreChange(e) {
   const p = e.target.dataset.player;
   const r = e.target.dataset.row;
   localStorage.setItem(`score_p${p}_r${r}`, e.target.value || 0);
+  e.target.disabled = true;
   calculateAll();
+  if (currentTurn < players.length - 1) {
+    currentTurn++;
+  } else {
+    currentTurn = 0;
+    currentRow++;
+  }
+  updateTurnUI();
 }
 
 // Cálculos automáticos
@@ -248,5 +284,6 @@ function calculateAll() {
       const span = cell.querySelector('.score-val');
       if (inp && span) span.textContent = inp.value || '';
     });
+
   });
 }
