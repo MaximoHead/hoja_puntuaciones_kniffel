@@ -52,7 +52,7 @@ button:hover {
 
 /* Registro de jugadores */
 #player-inputs input {
-  width: 100px;
+  width: 90%;
   margin-bottom: 6px;
   padding: 6px;
   border: 1px solid #ccc;
