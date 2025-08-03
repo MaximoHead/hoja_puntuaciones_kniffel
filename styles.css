@@ -108,17 +108,6 @@ input.score:disabled {
   pointer-events: none;
 }
 
-/* Notas */
-#notes-area .notes-box {
-  width: 100%;
-  min-height: 80px;
-  margin-bottom: 10px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  resize: vertical;
-}
-
 /* Enlaces */
 nav {
   text-align: center;
@@ -131,36 +120,6 @@ nav a {
 }
 nav a:hover {
   text-decoration: underline;
-}
-
-/* Zona de anotaciones con cuadricula separada */
-#notes-container {
-  margin-top: 20px;
-}
-#notes-area {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  border: 2px solid #005a9c;
-  border-radius: 8px;
-  padding: 8px;
-}
-.notes-section {
-  border: 1px solid #005a9c;
-  padding: 6px;
-  border-radius: 6px;
-}
-.notes-section h3 {
-  margin: 0 0 4px;
-  font-size: 0.9rem;
-  color: #005a9c;
-}
-.notes-section textarea {
-  width: 100%;
-  min-height: 60px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
 }
 
 #history { max-width: 900px; margin: 20px auto; }
