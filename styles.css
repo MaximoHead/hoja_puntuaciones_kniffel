@@ -86,9 +86,6 @@ input.score {
   border-radius: 4px;
   text-align: center;
 }
-td.with-input {
-  /* contenedor de celdas con entradas */
-}
 
 .score-wrapper {
   display: flex;
