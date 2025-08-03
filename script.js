@@ -7,7 +7,6 @@ let currentRow = 0;
 // Elementos del DOM
 const registro = document.getElementById('registro');
 const game = document.getElementById('game');
-const pcSelect = document.getElementById('player-count');
 const inputsD = document.getElementById('player-inputs');
 const start = document.getElementById('start-game');
 const nextBtn = document.getElementById('next-turn');
@@ -20,14 +19,11 @@ const historyList = document.getElementById('history-list');
 let history = JSON.parse(localStorage.getItem('kniffel_history') || '[]');
 
 // Inicializar campos de nombre
-pcSelect.addEventListener('change', buildNameFields);
 buildNameFields();
 
 function buildNameFields() {
   inputsD.innerHTML = '';
-  const n = Math.min(+pcSelect.value, maxPlayers);
-  pcSelect.value = n;
-  for (let i = 1; i <= n; i++) {
+  for (let i = 1; i <= maxPlayers; i++) {
     const inp = document.createElement('input');
     inp.type = 'text';
     inp.placeholder = `Nombre jugador ${i}`;
