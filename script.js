@@ -25,7 +25,8 @@ buildNameFields();
 
 function buildNameFields() {
   inputsD.innerHTML = '';
-  const n = +pcSelect.value;
+  const n = Math.min(+pcSelect.value, maxPlayers);
+  pcSelect.value = n;
   for (let i = 1; i <= n; i++) {
     const inp = document.createElement('input');
     inp.type = 'text';
