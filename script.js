@@ -133,6 +133,7 @@ function renderScoreboard() {
     players.forEach((_, pi) => {
       const td = document.createElement('td'); td.id = `cell-${ri}-${pi}`;
       if ((ri <= 5) || (ri >= 9 && ri <= 15)) {
+        td.classList.add('with-input');
         const inp = document.createElement('input');
         inp.type = 'number'; inp.min = 0;
         inp.classList.add('score');
@@ -140,6 +141,9 @@ function renderScoreboard() {
         inp.dataset.row = ri;
         inp.addEventListener('input', onScoreChange);
         td.appendChild(inp);
+        const span = document.createElement('span');
+        span.classList.add('score-val');
+        td.appendChild(span);
       }
       tr.appendChild(td);
     });
@@ -162,6 +166,8 @@ function loadFromStorage() {
         const inp = cell.querySelector('input');
         if (inp) {
           inp.value = val;
+          const span = cell.querySelector('.score-val');
+          if (span) span.textContent = val;
         } else {
           cell.textContent = val;
         }
@@ -234,11 +240,13 @@ function calculateAll() {
     // Total general
     const total = sup + bonus + inf;
     document.getElementById(`cell-17-${p}`).textContent = total;
-    // Mostrar valores de inputs en sus celdas
+
+    // Actualizar la vista de los valores ingresados sin eliminar los inputs
     [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)].forEach(r => {
       const cell = document.getElementById(`cell-${r}-${p}`);
       const inp = cell.querySelector('input');
-      if (inp) cell.textContent = inp.value || '';
+      const span = cell.querySelector('.score-val');
+      if (inp && span) span.textContent = inp.value || '';
     });
   });
 }
