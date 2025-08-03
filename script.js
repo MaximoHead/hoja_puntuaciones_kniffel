@@ -139,24 +139,19 @@ function renderScoreboard() {
     tr.appendChild(td0);
 
     players.forEach((_, pi) => {
-      const td = document.createElement('td'); td.id = `cell-${ri}-${pi}`;
-      if ((ri <= 5) || (ri >= 9 && ri <= 15)) {
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('score-wrapper');
+      const td = document.createElement('td');
+      td.id = `cell-${ri}-${pi}`;
+      if (ri <= 5 || (ri >= 9 && ri <= 15)) {
         const inp = document.createElement('input');
-        inp.type = 'number'; inp.min = 0;
+        inp.type = 'number';
+        inp.min = 0;
         inp.inputMode = 'numeric';
         inp.pattern = '\d*';
         inp.classList.add('score');
         inp.dataset.player = pi;
         inp.dataset.row = ri;
         inp.addEventListener('change', onScoreChange);
-        wrapper.appendChild(inp);
-        const span = document.createElement('span');
-        span.classList.add('score-val');
-        wrapper.appendChild(span);
-        td.appendChild(wrapper);
-        td.addEventListener('click', () => inp.focus());
+        td.appendChild(inp);
       }
       tr.appendChild(td);
     });
@@ -220,13 +215,5 @@ function calculateAll() {
     document.getElementById(`cell-16-${p}`).textContent = inf;
     const total = sup + bonus + inf;
     document.getElementById(`cell-17-${p}`).textContent = total;
-
-    // Actualizar la vista de los valores ingresados sin eliminar los inputs
-    scoreRows.forEach(r => {
-      const cell = document.getElementById(`cell-${r}-${p}`);
-      const inp = cell.querySelector('input');
-      const span = cell.querySelector('.score-val');
-      if (inp && span) span.textContent = inp.value || '';
-    });
   });
 }
