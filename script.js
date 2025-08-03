@@ -211,32 +211,34 @@ function onScoreChange(e) {
   calculateAll();
 }
 
-// Cálculos automáticos\ nfunction calculateAll() {
-players.forEach((_, p) => {
-  // Sección superior
-  let sup = 0;
-  for (let r = 0; r <= 5; r++) {
-    sup += parseInt(localStorage.getItem(`score_p${p}_r${r}`)) || 0;
-  }
-  document.getElementById(`cell-6-${p}`).textContent = sup;
-  // Bonus
-  const bonus = sup >= 63 ? 35 : 0;
-  document.getElementById(`cell-7-${p}`).textContent = bonus;
-  // Total superior + bonus
-  document.getElementById(`cell-8-${p}`).textContent = sup + bonus;
-  // Sección inferior
-  let inf = 0;
-  for (let r = 9; r <= 15; r++) {
-    inf += parseInt(localStorage.getItem(`score_p${p}_r${r}`)) || 0;
-  }
-  document.getElementById(`cell-16-${p}`).textContent = inf;
-  // Total general
-  const total = sup + bonus + inf;
-  document.getElementById(`cell-17-${p}`).textContent = total;
-  // Mostrar valores de inputs en sus celdas
-  [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)].forEach(r => {
-    const cell = document.getElementById(`cell-${r}-${p}`);
-    const inp = cell.querySelector('input');
-    if (inp) cell.textContent = inp.value || '';
+// Cálculos automáticos
+function calculateAll() {
+  players.forEach((_, p) => {
+    // Sección superior
+    let sup = 0;
+    for (let r = 0; r <= 5; r++) {
+      sup += parseInt(localStorage.getItem(`score_p${p}_r${r}`)) || 0;
+    }
+    document.getElementById(`cell-6-${p}`).textContent = sup;
+    // Bonus
+    const bonus = sup >= 63 ? 35 : 0;
+    document.getElementById(`cell-7-${p}`).textContent = bonus;
+    // Total superior + bonus
+    document.getElementById(`cell-8-${p}`).textContent = sup + bonus;
+    // Sección inferior
+    let inf = 0;
+    for (let r = 9; r <= 15; r++) {
+      inf += parseInt(localStorage.getItem(`score_p${p}_r${r}`)) || 0;
+    }
+    document.getElementById(`cell-16-${p}`).textContent = inf;
+    // Total general
+    const total = sup + bonus + inf;
+    document.getElementById(`cell-17-${p}`).textContent = total;
+    // Mostrar valores de inputs en sus celdas
+    [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)].forEach(r => {
+      const cell = document.getElementById(`cell-${r}-${p}`);
+      const inp = cell.querySelector('input');
+      if (inp) cell.textContent = inp.value || '';
+    });
   });
-});
+}
