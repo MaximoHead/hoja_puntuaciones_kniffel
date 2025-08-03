@@ -150,6 +150,8 @@ function renderScoreboard() {
         wrapper.classList.add('score-wrapper');
         const inp = document.createElement('input');
         inp.type = 'number'; inp.min = 0;
+        inp.inputMode = 'numeric';
+        inp.pattern = '\d*';
         inp.classList.add('score');
         inp.dataset.player = pi;
         inp.dataset.row = ri;
