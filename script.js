@@ -143,7 +143,6 @@ function renderScoreboard() {
     players.forEach((_, pi) => {
       const td = document.createElement('td'); td.id = `cell-${ri}-${pi}`;
       if ((ri <= 5) || (ri >= 9 && ri <= 15)) {
-        td.classList.add('with-input');
         const wrapper = document.createElement('div');
         wrapper.classList.add('score-wrapper');
         const inp = document.createElement('input');
