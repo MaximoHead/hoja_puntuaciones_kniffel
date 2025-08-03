@@ -70,7 +70,7 @@ newBtn.addEventListener('click', () => {
     return parseInt(document.getElementById(`cell-17-${p}`).textContent) || 0;
   });
   // Guardar en historial
-  history.push({ date: new Date().toLocaleString(), totals });
+  history.push({ date: new Date().toLocaleString(), players: [...players], totals });
   localStorage.setItem('kniffel_history', JSON.stringify(history));
   // Limpiar datos actuales
   Object.keys(localStorage)
@@ -95,7 +95,8 @@ function renderHistory() {
   historySec.classList.remove('hidden');
   historyList.innerHTML = history.map((gameItem, i) => {
     const title = `Partida ${i + 1} (${gameItem.date})`;
-    const cols = players.map(p => `<th>${p}</th>`).join('');
+    const names = gameItem.players || Array.from({ length: gameItem.totals.length }, (_, idx) => players[idx] || `Jugador ${idx + 1}`);
+    const cols = names.map(p => `<th>${p}</th>`).join('');
     const row = `<tr><td><strong>Total</strong></td>${gameItem.totals.map(t => `<td>${t}</td>`).join('')}</tr>`;
     return `
       <div class="history-game">
