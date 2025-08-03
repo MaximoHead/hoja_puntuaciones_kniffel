@@ -144,16 +144,19 @@ function renderScoreboard() {
       const td = document.createElement('td'); td.id = `cell-${ri}-${pi}`;
       if ((ri <= 5) || (ri >= 9 && ri <= 15)) {
         td.classList.add('with-input');
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('score-wrapper');
         const inp = document.createElement('input');
         inp.type = 'number'; inp.min = 0;
         inp.classList.add('score');
         inp.dataset.player = pi;
         inp.dataset.row = ri;
         inp.addEventListener('change', onScoreChange);
-        td.appendChild(inp);
+        wrapper.appendChild(inp);
         const span = document.createElement('span');
         span.classList.add('score-val');
-        td.appendChild(span);
+        wrapper.appendChild(span);
+        td.appendChild(wrapper);
         td.addEventListener('click', () => {
           currentRow = ri;
           currentTurn = pi;
