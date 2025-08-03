@@ -2,7 +2,6 @@
 const maxPlayers = 6;
 let players = [];
 let currentTurn = 0;
-let currentRow = 0;
 
 // Elementos del DOM
 const registro = document.getElementById('registro');
@@ -23,18 +22,9 @@ const scoreRows = [...Array(6).keys(), ...Array(7).keys()].map((_, i) =>
   i >= 6 ? i + 3 : i
 );
 
-function nextInputRow(row) {
-  const idx = scoreRows.indexOf(row);
-  return idx >= 0 && idx < scoreRows.length - 1 ? scoreRows[idx + 1] : row;
-}
-
+// Avanzar al siguiente jugador (sin restringir las filas)
 function advanceTurn() {
-  if (currentTurn < players.length - 1) {
-    currentTurn++;
-  } else {
-    currentTurn = 0;
-    currentRow = nextInputRow(currentRow);
-  }
+  currentTurn = (currentTurn + 1) % players.length;
   updateTurnUI();
 }
 
@@ -62,7 +52,6 @@ start.addEventListener('click', () => {
   registro.classList.add('hidden');
   game.classList.remove('hidden');
   currentTurn = 0;
-  currentRow = 0;
   renderHistory();
   renderScoreboard();
   updateTurnUI();
@@ -89,7 +78,6 @@ newBtn.addEventListener('click', () => {
   renderHistory();
   // Reiniciar UI
   currentTurn = 0;
-  currentRow = 0;
   game.classList.add('hidden');
   registro.classList.remove('hidden');
   buildNameFields();
@@ -168,12 +156,7 @@ function renderScoreboard() {
         span.classList.add('score-val');
         wrapper.appendChild(span);
         td.appendChild(wrapper);
-        td.addEventListener('click', () => {
-          currentRow = ri;
-          currentTurn = pi;
-          updateTurnUI();
-          inp.focus();
-        });
+        td.addEventListener('click', () => inp.focus());
       }
       tr.appendChild(td);
     });
@@ -184,10 +167,6 @@ function renderScoreboard() {
 
   loadFromStorage();
   calculateAll();
-  // Deshabilitar todos los inputs y habilitar solo el correspondiente al turno
-  table.querySelectorAll('input.score').forEach(inp => (inp.disabled = true));
-  const active = document.querySelector(`#cell-${currentRow}-${currentTurn} input`);
-  if (active) active.disabled = false;
 }
 
 function loadFromStorage() {
@@ -205,28 +184,10 @@ function loadFromStorage() {
       }
     });
   });
-  // Determinar siguiente celda vacía
-  let found = false;
-  for (const r of scoreRows) {
-    for (let p = 0; p < players.length; p++) {
-      if (localStorage.getItem(`score_p${p}_r${r}`) === null) {
-        currentRow = r;
-        currentTurn = p;
-        found = true;
-        break;
-      }
-    }
-    if (found) break;
-  }
 }
 // Actualizar UI de turnos
 function updateTurnUI() {
   turnLbl.textContent = `Turno de: ${players[currentTurn]}`;
-  document.querySelectorAll('input.score').forEach(inp => {
-    const p = parseInt(inp.dataset.player);
-    const r = parseInt(inp.dataset.row);
-    inp.disabled = !(p === currentTurn && r === currentRow);
-  });
 }
 
 // Guardar score y recalcular
