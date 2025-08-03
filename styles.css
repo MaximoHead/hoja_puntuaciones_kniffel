@@ -1,10 +1,17 @@
 /* styles.css (mobile-first) */
 
 body {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: Arial, Verdana, "Franklin Gothic Medium", "Franklin Gothic", sans-serif;
   margin: 10px;
   background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   color: #333;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Arial, Verdana, "Franklin Gothic Medium", "Franklin Gothic", sans-serif;
+  font-weight: 700;
 }
 
 /* Contenedores */
