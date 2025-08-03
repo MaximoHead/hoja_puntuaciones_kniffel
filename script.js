@@ -75,6 +75,9 @@ newBtn.addEventListener('click', () => {
   Object.keys(localStorage)
     .filter(k => k.startsWith('score_p'))
     .forEach(k => localStorage.removeItem(k));
+  players = [];
+  document.getElementById('scoreboard-container').innerHTML = '';
+  turnLbl.textContent = 'Turno de: —';
   // Actualizar historial en UI
   renderHistory();
   // Reiniciar UI
