@@ -18,6 +18,11 @@ const historySec = document.getElementById('history');
 const historyList = document.getElementById('history-list');
 let history = JSON.parse(localStorage.getItem('kniffel_history') || '[]');
 
+// Índices de filas donde los jugadores introducen puntuaciones
+const scoreRows = [...Array(6).keys(), ...Array(7).keys()].map((_, i) =>
+  i >= 6 ? i + 3 : i
+);
+
 // Inicializar campos de nombre
 buildNameFields();
 
@@ -169,7 +174,6 @@ function renderScoreboard() {
 }
 
 function loadFromStorage() {
-  const scoreRows = [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)];
   players.forEach((_, p) => {
     scoreRows.forEach(r => {
       const key = `score_p${p}_r${r}`;
@@ -186,7 +190,7 @@ function loadFromStorage() {
   });
   // Determinar siguiente celda vacía
   let found = false;
-  for (let r of scoreRows) {
+  for (const r of scoreRows) {
     for (let p = 0; p < players.length; p++) {
       if (localStorage.getItem(`score_p${p}_r${r}`) === null) {
         currentRow = r;
@@ -253,34 +257,30 @@ function onScoreChange(e) {
 // Cálculos automáticos
 function calculateAll() {
   players.forEach((_, p) => {
-    // Sección superior
     let sup = 0;
-    for (let r = 0; r <= 5; r++) {
-      sup += parseInt(localStorage.getItem(`score_p${p}_r${r}`)) || 0;
-    }
+    let inf = 0;
+    scoreRows.forEach(r => {
+      const val = parseInt(localStorage.getItem(`score_p${p}_r${r}`)) || 0;
+      if (r <= 5) {
+        sup += val;
+      } else {
+        inf += val;
+      }
+    });
     document.getElementById(`cell-6-${p}`).textContent = sup;
-    // Bonus
     const bonus = sup >= 63 ? 35 : 0;
     document.getElementById(`cell-7-${p}`).textContent = bonus;
-    // Total superior + bonus
     document.getElementById(`cell-8-${p}`).textContent = sup + bonus;
-    // Sección inferior
-    let inf = 0;
-    for (let r = 9; r <= 15; r++) {
-      inf += parseInt(localStorage.getItem(`score_p${p}_r${r}`)) || 0;
-    }
     document.getElementById(`cell-16-${p}`).textContent = inf;
-    // Total general
     const total = sup + bonus + inf;
     document.getElementById(`cell-17-${p}`).textContent = total;
 
     // Actualizar la vista de los valores ingresados sin eliminar los inputs
-    [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)].forEach(r => {
+    scoreRows.forEach(r => {
       const cell = document.getElementById(`cell-${r}-${p}`);
       const inp = cell.querySelector('input');
       const span = cell.querySelector('.score-val');
       if (inp && span) span.textContent = inp.value || '';
     });
-
   });
 }
