@@ -107,7 +107,7 @@ function renderScoreboard() {
   const rows = [
     'Unos', 'Doses', 'Treses', 'Cuatros', 'Cincos', 'Seises',
     'Total superior', 'Bonus (>=63 → +35)', 'Total sup. c/bonus',
-    'Trío', 'Póker', 'Full House', 'Escalera pequeña', 'Escalera grande', 'Kniffel', 'Chance',
+    'Trío', 'Cuarteo', 'Full House', 'Escalera pequeña', 'Escalera grande', 'Kniffel', 'Chance',
     'Total inferior', 'Puntuación total'
   ];
 
