@@ -152,6 +152,24 @@ function renderScoreboard() {
   calculateAll();
 }
 
+function loadFromStorage() {
+  players.forEach((_, p) => {
+    [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)].forEach(r => {
+      const key = `score_p${p}_r${r}`;
+      const val = localStorage.getItem(key);
+      if (val !== null) {
+        const cell = document.getElementById(`cell-${r}-${p}`);
+        const inp = cell.querySelector('input');
+        if (inp) {
+          inp.value = val;
+        } else {
+          cell.textContent = val;
+        }
+      }
+    });
+  });
+}
+
 // Renderizar notas por sección
 function renderNotes() {
   const upperSec = document.getElementById('notes-upper');
