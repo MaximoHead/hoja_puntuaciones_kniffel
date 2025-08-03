@@ -149,6 +149,9 @@ function renderScoreboard() {
         inp.dataset.row = ri;
         inp.addEventListener('change', onScoreChange);
         td.appendChild(inp);
+        const span = document.createElement('span');
+        span.classList.add('score-val');
+        td.appendChild(span);
         td.addEventListener('click', () => {
           currentRow = ri;
           currentTurn = pi;
