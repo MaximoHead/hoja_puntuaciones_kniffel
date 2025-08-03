@@ -141,6 +141,7 @@ function renderScoreboard() {
     players.forEach((_, pi) => {
       const td = document.createElement('td'); td.id = `cell-${ri}-${pi}`;
       if ((ri <= 5) || (ri >= 9 && ri <= 15)) {
+        td.classList.add('with-input');
         const inp = document.createElement('input');
         inp.type = 'number'; inp.min = 0;
         inp.classList.add('score');
@@ -275,5 +276,14 @@ function calculateAll() {
     // Total general
     const total = sup + bonus + inf;
     document.getElementById(`cell-17-${p}`).textContent = total;
+
+    // Actualizar la vista de los valores ingresados sin eliminar los inputs
+    [...Array(6).keys(), ...Array(7).keys().map(i => i + 9)].forEach(r => {
+      const cell = document.getElementById(`cell-${r}-${p}`);
+      const inp = cell.querySelector('input');
+      const span = cell.querySelector('.score-val');
+      if (inp && span) span.textContent = inp.value || '';
+    });
+
   });
 }
