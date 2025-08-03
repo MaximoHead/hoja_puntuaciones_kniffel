@@ -75,6 +75,9 @@ newBtn.addEventListener('click', () => {
   Object.keys(localStorage)
     .filter(k => k.startsWith('score_p'))
     .forEach(k => localStorage.removeItem(k));
+  players = [];
+  document.getElementById('scoreboard-container').innerHTML = '';
+  turnLbl.textContent = 'Turno de: —';
   // Actualizar historial en UI
   renderHistory();
   // Reiniciar UI
@@ -143,11 +146,12 @@ function renderScoreboard() {
     players.forEach((_, pi) => {
       const td = document.createElement('td'); td.id = `cell-${ri}-${pi}`;
       if ((ri <= 5) || (ri >= 9 && ri <= 15)) {
-        td.classList.add('with-input');
         const wrapper = document.createElement('div');
         wrapper.classList.add('score-wrapper');
         const inp = document.createElement('input');
         inp.type = 'number'; inp.min = 0;
+        inp.inputMode = 'numeric';
+        inp.pattern = '\d*';
         inp.classList.add('score');
         inp.dataset.player = pi;
         inp.dataset.row = ri;
