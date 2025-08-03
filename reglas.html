@@ -10,6 +10,7 @@
 
 <body>
   <h1>Reglas de Kniffel</h1>
+  <button id="return-game">Volver al juego</button>
 
   <section>
     <h2>1. Preparación</h2>
@@ -158,6 +159,11 @@
     </table>
   </section>
 
+  <script>
+    document.getElementById('return-game').addEventListener('click', () => {
+      history.back();
+    });
+  </script>
 </body>
 
 </html>

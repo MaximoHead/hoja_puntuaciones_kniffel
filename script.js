@@ -23,6 +23,21 @@ const scoreRows = [...Array(6).keys(), ...Array(7).keys()].map((_, i) =>
   i >= 6 ? i + 3 : i
 );
 
+function nextInputRow(row) {
+  const idx = scoreRows.indexOf(row);
+  return idx >= 0 && idx < scoreRows.length - 1 ? scoreRows[idx + 1] : row;
+}
+
+function advanceTurn() {
+  if (currentTurn < players.length - 1) {
+    currentTurn++;
+  } else {
+    currentTurn = 0;
+    currentRow = nextInputRow(currentRow);
+  }
+  updateTurnUI();
+}
+
 // Inicializar campos de nombre
 buildNameFields();
 
@@ -53,15 +68,7 @@ start.addEventListener('click', () => {
   updateTurnUI();
 });
 
-nextBtn.addEventListener('click', () => {
-  if (currentTurn < players.length - 1) {
-    currentTurn++;
-  } else {
-    currentTurn = 0;
-    currentRow++;
-  }
-  updateTurnUI();
-});
+nextBtn.addEventListener('click', advanceTurn);
 
 newBtn.addEventListener('click', () => {
   // Recoger totales actuales
@@ -229,13 +236,7 @@ function onScoreChange(e) {
   localStorage.setItem(`score_p${p}_r${r}`, e.target.value || 0);
   e.target.disabled = true;
   calculateAll();
-  if (currentTurn < players.length - 1) {
-    currentTurn++;
-  } else {
-    currentTurn = 0;
-    currentRow++;
-  }
-  updateTurnUI();
+  advanceTurn();
 }
 
 // Cálculos automáticos
