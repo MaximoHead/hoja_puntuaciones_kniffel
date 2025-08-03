@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reglas de Kniffel</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <h1>Reglas de Kniffel</h1>
+
+  <section>
+    <h2>1. Preparación</h2>
+    <ul>
+      <li>De 2 a 6 jugadores.</li>
+      <li>Se utilizan 5 dados y un bloc de puntuación.</li>
+      <li>Cada jugador en su turno puede lanzar hasta 3 veces los dados.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>2. Descripción del turno</h2>
+    <ol>
+      <li>Lanzamiento inicial de los 5 dados.</li>
+      <li>El jugador decide qué dados mantiene y cuáles relanza.</li>
+      <li>Repite hasta 2 relanzamientos (máximo 3 lanzamientos totales).</li>
+      <li>Elige una casilla libre para anotar la puntuación según el resultado.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>3. Sección superior (Números)</h2>
+    <div class="category"><strong>1:</strong> Suma de unos.</div>
+    <div class="category"><strong>2:</strong> Suma de doses.</div>
+    <div class="category"><strong>3:</strong> Suma de treses.</div>
+    <div class="category"><strong>4:</strong> Suma de cuatros.</div>
+    <div class="category"><strong>5:</strong> Suma de cincos.</div>
+    <div class="category"><strong>6:</strong> Suma de seises.</div>
+    <p class="bonus">Bono superior: si el total de esta sección ≥ 63, +35 puntos.</p>
+  </section>
+
+  <section>
+    <h2>4. Sección inferior</h2>
+    <div class="category"><strong>Trío:</strong> 3 dados iguales (suma de los 5 dados).</div>
+    <div class="category"><strong>Cuarteto:</strong> 4 dados iguales (suma de los 5 dados).</div>
+    <div class="category"><strong>Full:</strong> 3+2 dados iguales (25 puntos).</div>
+    <div class="category"><strong>Escalera pequeña:</strong> 4 dados en orden (30 puntos).</div>
+    <div class="category"><strong>Escalera grande:</strong> 5 dados en orden (40 puntos).</div>
+    <div class="category"><strong>Kniffel:</strong> 5 dados iguales (50 puntos).</div>
+    <div class="category"><strong>Chance:</strong> Suma de los 5 dados.</div>
+  </section>
+
+  <section>
+    <h2>5. Kniffel adicional (Joker)</h2>
+    <ul>
+      <li>Por cada Kniffel extra se otorgan <span class="bonus">+100 puntos</span>.</li>
+      <li>Los dados actúan como comodín:
+        <ul>
+          <li>Si la casilla del mismo número en sección superior está libre, se anota allí.</li>
+          <li>Si ya está completada, se usa para cualquier categoría libre en la sección inferior.</li>
+        </ul>
+      </li>
+      <li>Si no queda ninguna casilla válida, se tacha una de elección.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>6. Fin del juego y puntuación</h2>
+    <p>Cuando todas las casillas de un jugador están completas, termina la partida. Cada jugador suma:</p>
+    <ul>
+      <li>Total sección superior (+ bono si aplica).</li>
+      <li>Total sección inferior (incluyendo Kniffels y bonus).</li>
+    </ul>
+    <p><strong>Gana quien tenga más puntos.</strong></p>
+  </section>
+
+  <section>
+    <h2>7. Tabla de puntuación (ejemplo)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Unos</td>
+          <td id="score-ones">-</td>
+        </tr>
+        <tr>
+          <td>Doses</td>
+          <td id="score-twos">-</td>
+        </tr>
+        <tr>
+          <td>Treses</td>
+          <td id="score-threes">-</td>
+        </tr>
+        <tr>
+          <td>Cuatros</td>
+          <td id="score-fours">-</td>
+        </tr>
+        <tr>
+          <td>Cincos</td>
+          <td id="score-fives">-</td>
+        </tr>
+        <tr>
+          <td>Seises</td>
+          <td id="score-sixes">-</td>
+        </tr>
+        <tr>
+          <td>Bono superior</td>
+          <td id="score-bonus">-</td>
+        </tr>
+        <tr>
+          <td>Total sección</td>
+          <td id="score-upper-total">-</td>
+        </tr>
+        <tr>
+          <td>Trío</td>
+          <td id="score-trio">-</td>
+        </tr>
+        <tr>
+          <td>Cuarteto</td>
+          <td id="score-cuarteto">-</td>
+        </tr>
+        <tr>
+          <td>Full</td>
+          <td id="score-full-house">-</td>
+        </tr>
+        <tr>
+          <td>Escalera pequeña</td>
+          <td id="score-small-straight">-</td>
+        </tr>
+        <tr>
+          <td>Escalera grande</td>
+          <td id="score-large-straight">-</td>
+        </tr>
+        <tr>
+          <td>Kniffel</td>
+          <td id="score-kniffel">-</td>
+        </tr>
+        <tr>
+          <td>Chance</td>
+          <td id="score-chance">-</td>
+        </tr>
+        <tr>
+          <td>Total sección superior</td>
+          <td id="score-upper-total">-</td>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <th id="score-total">-</th>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kniffel - Hoja de Puntuación</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <h1>🎲 Kniffel (Yatzy) - Hoja de Puntuación ✨</h1>
+
+  <section id="registro">
+    <h2>👥 Configuración de la partida</h2>
+    <label for="player-count">Número de jugadores:</label>
+    <select id="player-count">
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4" selected>4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+    <div id="player-inputs"></div>
+    <button id="start-game">¡Empezar partida!</button>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="turn-control">
+      <span id="current-turn">Turno de: —</span>
+      <button id="next-turn">Siguiente jugador</button>
+      <button id="new-game">Reiniciar partida</button>
+    </div>
+    <div id="scoreboard-container"></div>
+    <div id="notes-container">
+      <h2>📝 Anotaciones</h2>
+      <div id="notes-area"></div>
+    </div>
+  </section>
+  <section id="history" class="hidden">
+    <h2>📜 Historial de partidas</h2>
+    <div id="history-list"></div>
+  </section>
+  <nav>
+    <a href="reglas.html">📖 Reglas del juego</a>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

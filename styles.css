@@ -1,0 +1,168 @@
+/* styles.css (mobile-first) */
+
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  margin: 10px;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  color: #333;
+}
+
+/* Contenedores */
+section {
+  margin: 10px 0;
+  padding: 12px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* Control de turno y botones */
+.turn-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+button {
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(45deg, #89f7fe, #66a6ff);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.1s;
+}
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Registro de jugadores */
+#player-inputs input {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Tabla responsiva */
+#scoreboard-container {
+  overflow-x: auto;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  min-width: 600px;        /* para móviles, se meterá en scroll */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+th, td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+th {
+  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+  color: #fff;
+  font-size: 0.9rem;
+}
+input.score {
+  width: 100%;
+  max-width: 60px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+input.score:disabled {
+  background: #f0f0f0;
+}
+
+/* Notas */
+#notes-area .notes-box {
+  width: 100%;
+  min-height: 80px;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+/* Enlaces */
+nav {
+  text-align: center;
+  margin-top: 10px;
+}
+nav a {
+  color: #66a6ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Zona de anotaciones con cuadricula separada */
+#notes-container {
+  margin-top: 20px;
+}
+#notes-area {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-row-gap: 4px;
+  border: 2px solid #66a6ff;
+  border-radius: 8px;
+  padding: 8px;
+}
+.notes-section {
+  border: 1px solid #89f7fe;
+  padding: 6px;
+  border-radius: 6px;
+}
+.notes-section h3 {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+  color: #66a6ff;
+}
+.notes-section textarea {
+  width: 100%;
+  min-height: 60px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+#history { max-width: 900px; margin: 20px auto; }
+.history-game { margin-bottom: 16px; }
+.history-game table {
+  width: 100%; border-collapse: collapse; margin-top: 4px;
+}
+.history-game th, .history-game td {
+  border: 1px solid #ccc; padding: 6px; text-align: center;
+}
+.history-game h3 {
+  margin: 8px 0 4px;
+  font-size: 1rem; color: #444;
+}
+
+/* Ajustes para pantallas medianas en adelante */
+@media (min-width: 600px) {
+  .turn-control {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  th {
+    font-size: 1rem;
+    padding: 10px;
+  }
+  td {
+    padding: 10px;
+  }
+}
+
